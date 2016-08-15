@@ -1,6 +1,6 @@
 # Flink Streaming with Kakfa
 
-During this XKE we want to experiment with ([Flink]https://flink.apache.org/) a distributed processing engine like Spark.
+During this XKE we want to experiment with [Flink](https://flink.apache.org/) a distributed processing engine like Spark.
 Flink exists of a Streaming and a DataSet-API. We are going to look into the Streaming-API.
 
 ## What you need
@@ -40,7 +40,7 @@ Build it with 'mvn package'.
 
 
 ## Start a Flink
-Start Flink and open the ([webinterface]http://localhost:8081/):
+Start Flink and open the [webinterface](http://localhost:8081/):
     
     FLINK_HOME=$(pwd)
     ./bin/start-local.sh
@@ -58,18 +58,21 @@ Start Kafka and create a topic:
     # Look there it is:
     bin/kafka-topics.sh --list --zookeeper localhost:2181
 
-# How it Works?!
+## How it Works?!
 You have to submit your application (fat-jar) to Flink, so first build your jar with maven package.
-Go to the ([WebUI]http://localhost:8081/#/submit) or use $FLINK_HOME/bin/flink run target/flink-streaming-0.1.jar [program arguments].
+Go to the [WebUI](http://localhost:8081/#/submit) or use `$FLINK_HOME/bin/flink run target/flink-streaming-0.1.jar [program arguments]`.
 Note: in the pom.xml the mainClass is defined line ~350!
 
-## Exercise 1: Count words
+
+### Exercise 1: Count words
 Send some text into the Kafka-topic with the Console-Producer and Parse these streaming events with Flink. Print the top words.
- 
+
+
     bin/kafka-console-producer.sh --broker-list localhost:9092 --topic texttest
     $FLINK_HOME/bin/flink run target/flink-streaming-0.1.jar com.gdd.KafkaStreamingWordCount localhost:9092 texttopic myGroup1
-    
-## Exercise 2: Sliding Window - WordCount
+
+
+### Exercise 2: Sliding Window - WordCount
 One of Flinks' strong features is the windows functions. These are not limited to ingest event times!
 Try make your streaming wordcount more fancy with Trending Words:
 
@@ -77,23 +80,25 @@ Try make your streaming wordcount more fancy with Trending Words:
 - Let the window slide over 30 seconds
 - Print only the top 1 words (every minute)
 
-## Exercise 3: Twitter treding topics!
+
+### Exercise 3: Twitter treding topics!
 If you have completed the previous example you are very close of implementing a Treding Twitter Topics application!
 You need a Twitter api-token and consumer-key to slurp tweets from the interwebz.
-You can add the ([flink-twitter-source]https://ci.apache.org/projects/flink/flink-docs-master/apis/streaming/connectors/twitter.html) to create your trending topics.
+You can add the [flink-twitter-source](https://ci.apache.org/projects/flink/flink-docs-master/apis/streaming/connectors/twitter.html) to create your trending topics.
 
 - Extract the #tags from the tweets
 - Print the top 3 most tweeted hashtags over 5 minutes
 - Check if your results match :-)
 
 
-# Loading the HeroesOfTheStorm-replay dataset in Kafka
+## Loading the HeroesOfTheStorm-replay dataset in Kafka
 Instead of the console-producer we are going to load some data
 
 - Replays (1 row per match): ReplayID (Unique per match), Game Mode (3=Quick Match, 4=Hero League, 5=Team League), Map, Replay Length, Timestamp (UTC)
 - Replay Characters (10 rows per match, one for each Hero): ReplayID (Unique per match, links to other file), Is Auto Select, Hero, Hero Level, Is Winner, MMR Before
 
-    # Download and unzip (brew install p7zip)
+
+    #Download and unzip (brew install p7zip)
     wget https://d1i1jxrdh2kvwy.cloudfront.net/Data/HOTSLogs%20Data%202015-05-14%20-%202015-05-24.zip
     7z x HOTSLogs*.zip
 
@@ -102,11 +107,12 @@ Instead of the console-producer we are going to load some data
 
 
 # Troubleshoot:
-Caused by: java.lang.NoClassDefFoundError: scala/collection/GenTraversableOnce$class
-Build jar with -Pbuild-jar to create FAT jar with deps.
 
-Caused by: java.lang.RuntimeException: Unable to retrieve any partitions for the requested topics [texttopic].Please check previous log entries
-Topic does not exists!
+`Caused by: java.lang.NoClassDefFoundError: scala/collection/GenTraversableOnce$class`
+`Build jar with -Pbuild-jar to create FAT jar with deps.`
+
+`Caused by: java.lang.RuntimeException: Unable to retrieve any partitions for the requested topics [texttopic].Please check previous log entries`
+_Topic does not exists!_
 
 Pom.xml:
-<mainClass>com.gdd.KafkaStreamingWordCount</mainClass>
+`<mainClass>com.gdd.KafkaStreamingWordCount</mainClass>`
