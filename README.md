@@ -54,7 +54,7 @@ Start Kafka and create a topic:
 
     # Create a Kafka topic:
     bin/kafka-topics.sh --list --zookeeper localhost:2181
-    bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic texttest
+    bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic texttopic
     # Look there it is:
     bin/kafka-topics.sh --list --zookeeper localhost:2181
 
@@ -68,7 +68,7 @@ Note: in the pom.xml the mainClass is defined line ~350!
 Send some text into the Kafka-topic with the Console-Producer and Parse these streaming events with Flink. Print the top words.
 
 
-    bin/kafka-console-producer.sh --broker-list localhost:9092 --topic texttest
+    bin/kafka-console-producer.sh --broker-list localhost:9092 --topic texttopic
     $FLINK_HOME/bin/flink run target/flink-streaming-0.1.jar --kafkabroker localhost:9092 --kafka.topic texttopic --kafka.groupId myGroup1
 
 
