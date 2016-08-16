@@ -69,7 +69,7 @@ Send some text into the Kafka-topic with the Console-Producer and Parse these st
 
 
     bin/kafka-console-producer.sh --broker-list localhost:9092 --topic texttest
-    $FLINK_HOME/bin/flink run target/flink-streaming-0.1.jar com.gdd.KafkaStreamingWordCount localhost:9092 texttopic myGroup1
+    $FLINK_HOME/bin/flink run target/flink-streaming-0.1.jar --kafkabroker localhost:9092 --kafka.topic texttopic --kafka.groupId myGroup1
 
 
 ### Exercise 2: Sliding Window - WordCount
