@@ -8,9 +8,9 @@ Install the required tools which can be accomplised by downloading the distribut
 For Mac users 'brew' might be handy.
 
 - Java 8
-- Zookeeper
-- Kafka (bundled with Zookeeper)
-- Flink (also bundled with Zookeeper)
+- Kafka
+- Flink
+- Zookeeper (but thats bundled with Kafka and Flink)
 - Maven3 for building the fat-jar
 
 
