@@ -70,6 +70,8 @@ Send some text into the Kafka-topic with the Console-Producer and Parse these st
 
     bin/kafka-console-producer.sh --broker-list localhost:9092 --topic texttopic
     $FLINK_HOME/bin/flink run target/flink-streaming-0.1.jar --kafkabroker localhost:9092 --kafka.topic texttopic --kafka.groupId myGroup1
+    # Or if you have commented out the mainClass in the pom.xml
+    $FLINK_HOME/bin/flink run target/flink-streaming-0.1.jar --class com.gdd.solutions.KafkaStreamingWordCount --kafkabroker localhost:9092 --kafka.topic texttopic --kafka.groupId myGroup1
 
 
 ### Exercise 2: Sliding Window - WordCount
@@ -86,6 +88,9 @@ If you have completed the previous example you are very close of implementing a 
 You need a Twitter api-token and consumer-key to slurp tweets from the interwebz.
 You can add the [flink-twitter-source](https://ci.apache.org/projects/flink/flink-docs-master/apis/streaming/connectors/twitter.html) to create your trending topics.
 
+    Change your mainClass in the pom.xml to TwitterStreamProcessing and build the jar
+    $FLINK_HOME/bin/flink run target/flink-streaming-0.1.jar --token <YourToken> --token.secret <YourTokenSecret> --consumer.key <YourKey> --consumer.secret <YourConsuerSecret>
+
 - Extract the #tags from the tweets
 - Print the top 3 most tweeted hashtags over 5 minutes
 - Check if your results match :-)
@@ -98,7 +103,7 @@ Instead of the console-producer we are going to load some data
 - Replay Characters (10 rows per match, one for each Hero): ReplayID (Unique per match, links to other file), Is Auto Select, Hero, Hero Level, Is Winner, MMR Before
 
 
-    #Download and unzip (brew install p7zip)
+    #Download and unzip (brew install p7zip wget)
     wget https://d1i1jxrdh2kvwy.cloudfront.net/Data/HOTSLogs%20Data%202015-05-14%20-%202015-05-24.zip
     7z x HOTSLogs*.zip
 
